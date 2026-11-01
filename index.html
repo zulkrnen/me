@@ -30,7 +30,7 @@
         #cv { position: fixed; inset: 0; z-index: 0; }
         .vg {
             position: fixed; inset: 0; z-index: 1; pointer-events: none;
-            background: radial-gradient(circle at 50% 40%, transparent 20%, rgba(3, 4, 6, 0.85) 80%);
+            background: radial-gradient(circle at 50% 40%, transparent 25%, rgba(3, 4, 6, 0.92) 85%);
         }
 
         .mono, .pill, .nb, .lk, .chip {
@@ -44,7 +44,7 @@
 
         #site {
             position: fixed; inset: 0; z-index: 2; display: flex; flex-direction: column;
-            opacity: 0; pointer-events: none; transition: opacity 1s var(--e);
+            opacity: 0; pointer-events: none; transition: opacity 1.2s var(--e);
         }
         #site.on { opacity: 1; pointer-events: auto; }
 
@@ -104,7 +104,7 @@
             font-size: clamp(2.6rem, 9vw, 6.4rem); line-height: .98; text-transform: uppercase;
             background: radial-gradient(circle 340px at var(--x, 50%) var(--y, 50%), #fff, #cbd5e1 45%, #64748b);
             -webkit-background-clip: text; background-clip: text; color: transparent;
-            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.8));
         }
         h1.nm span { display: block; }
         .tag { max-width: 34rem; color: var(--t2); font-weight: 300; font-size: clamp(1.05rem, 2.4vw, 1.35rem); }
@@ -158,7 +158,7 @@
         }
         .tl .card { overflow: visible; }
 
-        @keyframes up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+        @keyframes up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
         #iris { position: fixed; inset: 0; z-index: 4; pointer-events: none; opacity: 0; clip-path: circle(0 at 50% 50%); }
         #toast {
@@ -167,7 +167,7 @@
         }
         #toast.on { opacity: 1; }
 
-        /* Cinematic Story Mode */
+        /* Dark Thriller Story Mode */
         #st { position: fixed; inset: 0; z-index: 6; pointer-events: none; }
         #st * { pointer-events: auto; }
         #st.off { display: none; }
@@ -175,59 +175,65 @@
         .lb { position: absolute; left: 0; right: 0; height: 0; background: #000; transition: height 1.4s var(--e); z-index: 2; pointer-events: none; }
         .lb.t { top: 0; }
         .lb.b { bottom: 0; }
-        #st.on .lb { height: 8vh; }
+        #st.on .lb { height: 9vh; }
 
         #skip {
-            position: absolute; top: max(14px, env(safe-area-inset-top)); right: 24px; z-index: 5; color: var(--t3); padding: 8px 14px; border: 1px solid var(--ln); border-radius: 99px; background: rgba(5,6,8,0.4); backdrop-filter: blur(10px);
+            position: absolute; top: max(16px, env(safe-area-inset-top)); right: 24px; z-index: 12; color: var(--t3); padding: 8px 16px; border: 1px solid var(--ln); border-radius: 99px; background: rgba(5,6,8,0.5); backdrop-filter: blur(12px);
         }
         #skip:hover { color: #fff; border-color: var(--ac); }
 
         #gate {
             position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column;
-            align-items: center; justify-content: flex-end; gap: 16px; padding-bottom: 12vh; text-align: center;
+            align-items: center; justify-content: flex-end; gap: 18px; padding-bottom: 14vh; text-align: center;
         }
-        #gate h1 { font-size: clamp(2rem, 7vw, 4.6rem); letter-spacing: .14em; }
+        #gate h1 { font-size: clamp(2.2rem, 7.5vw, 4.8rem); letter-spacing: .16em; text-shadow: 0 4px 30px #000; }
         #gate p { color: var(--t3); }
         #st.on #gate { display: none; pointer-events: none; }
 
         #sub {
-            position: absolute; left: 0; right: 0; bottom: 18vh; z-index: 3; text-align: center;
-            padding: 0 8vw; display: flex; flex-direction: column; gap: 12px; align-items: center; pointer-events: none;
+            position: absolute; left: 0; right: 0; bottom: 20vh; z-index: 3; text-align: center;
+            padding: 0 8vw; display: flex; flex-direction: column; gap: 14px; align-items: center; pointer-events: none;
         }
-        #sub p {
-            font-weight: 300; font-size: clamp(1.05rem, 2.5vw, 1.7rem); line-height: 1.4; max-width: 44rem;
-            animation: up .8s var(--e) both; text-shadow: 0 2px 20px rgba(0,0,0,0.8); color: var(--t2);
+        #sub p.thriller-line {
+            font-weight: 300; font-size: clamp(1.1rem, 2.6vw, 1.85rem); line-height: 1.45; max-width: 44rem;
+            opacity: 0; transform: translateY(16px) scale(0.98); filter: blur(4px);
+            transition: opacity 0.8s var(--e), transform 0.8s var(--e), filter 0.8s var(--e);
+            text-shadow: 0 2px 24px rgba(0,0,0,0.9); color: var(--t2);
         }
+        #sub p.thriller-line.show {
+            opacity: 1; transform: translateY(0) scale(1); filter: blur(0);
+        }
+
         #sub .ttl {
-            font: 600 clamp(1.3rem, 3.2vw, 2.2rem) Sora; letter-spacing: .24em; text-transform: uppercase;
-            color: var(--tc, #fff); text-shadow: 0 0 30px color-mix(in srgb, var(--tc, #fff) 40%, transparent);
+            font: 600 clamp(1.4rem, 3.4vw, 2.4rem) Sora; letter-spacing: .28em; text-transform: uppercase;
+            color: var(--tc, #fff); text-shadow: 0 0 35px color-mix(in srgb, var(--tc, #fff) 50%, transparent);
         }
-        #sub .ty { font: 400 clamp(1rem, 2.1vw, 1.25rem) 'JetBrains Mono'; color: var(--t); }
+        #sub .ty { font: 400 clamp(1rem, 2.1vw, 1.3rem) 'JetBrains Mono'; color: var(--t); }
         #sub .ty::after { content: '▍'; animation: bl 1s steps(2) infinite; color: var(--ac); }
         @keyframes bl { 50% { opacity: 0; } }
 
         /* Story Controls Toolbar */
         #story-controls {
-            position: absolute; bottom: 6vh; left: 50%; transform: translateX(-50%);
-            z-index: 7; display: flex; align-items: center; gap: 16px; opacity: 0; transition: opacity .5s; pointer-events: auto;
+            position: absolute; bottom: 5vh; left: 50%; transform: translateX(-50%);
+            z-index: 12; display: flex; align-items: center; gap: 14px; opacity: 0; transition: opacity .5s; pointer-events: auto;
         }
         #st.on #story-controls { opacity: 1; }
         .s-btn {
-            padding: 8px 16px; border: 1px solid var(--ln); border-radius: 99px;
-            background: rgba(12, 15, 22, 0.6); backdrop-filter: blur(12px); color: var(--t3); font-size: 11px; transition: .3s;
+            padding: 8px 18px; border: 1px solid var(--ln); border-radius: 99px;
+            background: rgba(12, 15, 22, 0.7); backdrop-filter: blur(14px); color: var(--t3); font-size: 11px; transition: .3s;
         }
-        .s-btn:hover { color: #fff; border-color: var(--ac); background: rgba(111, 143, 201, 0.15); }
+        .s-btn:hover { color: #fff; border-color: var(--ac); background: rgba(111, 143, 201, 0.2); }
 
         #sc {
-            position: absolute; left: 10vw; right: 10vw; bottom: 3.2vh; z-index: 5; display: flex; gap: 6px; opacity: 0; transition: .6s; pointer-events: none;
+            position: absolute; left: 10vw; right: 10vw; bottom: 2.8vh; z-index: 5; display: flex; gap: 6px; opacity: 0; transition: .6s; pointer-events: none;
         }
         #st.on #sc { opacity: 1; pointer-events: auto; }
-        #sc i { flex: 1; height: 3px; background: rgba(255, 255, 255, .1); border-radius: 3px; overflow: hidden; cursor: pointer; pointer-events: auto; }
+        #sc i { flex: 1; height: 3px; background: rgba(255, 255, 255, .12); border-radius: 3px; overflow: hidden; cursor: pointer; pointer-events: auto; }
         #sc b { display: block; height: 100%; width: 0; background: var(--ac); transition: width .4s linear; }
 
         /* Credits */
         #cr {
-            position: fixed; inset: 0; z-index: 8; background: rgba(3, 4, 6, .96);
+            position: fixed; inset: 0; z-index: 15; background: rgba(3, 4, 6, .96);
             display: none; align-items: center; justify-content: center; text-align: center; overflow: hidden;
         }
         #cr.on { display: flex; }
@@ -317,7 +323,7 @@
         <div id="crl">
             <div class="d" style="font-size: 2rem; letter-spacing: .2em;">STILL BECOMING</div>
             <div><small class="mono">Written &amp; directed by</small>Syed Zulqarnain Haider</div>
-            <div><small class="mono">Starring</small>The Ambient Orb</div>
+            <div><small class="mono">Starring</small>The Orb</div>
             <div><small class="mono">Production</small>Ex'Orios</div>
             <div><small class="mono">Built with</small>HTML, canvas &amp; clean design</div>
             <div><small class="mono">Shot on location</small>Skardu, GB</div>
@@ -331,10 +337,11 @@
               hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
 
         const cv = $('#cv'), g = cv.getContext('2d'),
-              SEC = ['#22d3ee', '#34d399', '#a855f7', '#f43f5e', '#fb923c', '#3b82f6'].map(hex);
+              SEC = ['#22d3ee', '#34d399', '#a855f7', '#f43f5e', '#fb923c', '#3b82f6'].map(hex),
+              N = 36;
 
         let W, H, U, px = innerWidth / 2, py = innerHeight / 2,
-            inStory = true, mode = 'still', ma = 0, tcol = [255, 255, 255], acc = hex('#6f8fc9');
+            inStory = true, mode = 'bar', ma = 0, tcol = [255, 255, 255], acc = hex('#6f8fc9');
 
         let lastMove = 0, nmRect = null;
 
@@ -348,110 +355,208 @@
         }
         addEventListener('resize', rs); rs();
 
-        // Calm, clean ambient orb state
-        const C = { x: W / 2, y: H * .38, r: 0, a: 0, h: 0, bar: 0, rg: 0, sq: 1, jit: 0, cd: 0, p: 0, ln: 0, fl: 0, col: [255, 255, 255] },
-              S = Array.from({ length: 16 }, () => ({ x: W/2, y: H/2, r: 0, a: 0, tx: 0, ty: 0, tr: 0, ta: 0, tc: [255,255,255], c: [255,255,255] }));
+        // Restore Orb Actor State
+        const C = { x: W / 2, y: H * .34, r: 0, a: 0, h: 0, bar: 1, rg: 0, sq: 1, jit: 0, cd: 0, p: 0, ln: 0, fl: 0, col: [255, 255, 255] },
+              T = {}, S = Array.from({ length: N }, (_, i) => ({ x: W / 2, y: H / 2, r: 0, a: 0, tx: 0, ty: 0, tr: 0, ta: 0, tc: SEC[i % 6], c: [255, 255, 255] }));
+
+        const ST = [
+            [[0, 1], [.25, .55], [1, 0]],
+            [[0, 0], [.45, 0], [.62, .9], [.72, .25], [1, 0]]
+        ], cache = {};
+
+        function spr(c, h) {
+            const k = c.map(v => v >> 4).join() + h;
+            if (cache[k]) return cache[k];
+            const o = document.createElement('canvas');
+            o.width = o.height = 96;
+            const x = o.getContext('2d'), r = x.createRadialGradient(48, 48, 0, 48, 48, 48);
+            ST[h].forEach(([s, a]) => r.addColorStop(s, `rgba(255,255,255,${a})`));
+            x.fillStyle = r; x.fillRect(0, 0, 96, 96);
+            x.globalCompositeOperation = 'source-in';
+            x.fillStyle = `rgb(${c.map(v => (v >> 4 << 4) | 8)})`;
+            x.fillRect(0, 0, 96, 96);
+            return cache[k] = o;
+        }
+
+        function dot(x, y, r, a, c, h = 0, sy = 1) {
+            if (a < .01 || r < .5) return;
+            g.globalAlpha = Math.min(a, 1);
+            g.drawImage(spr(c, h), x - r, y - r * sy, r * 2, r * 2 * sy);
+        }
+
+        const sat = (i, x, y, r, a, c) => {
+            const s = S[i]; s.tx = x; s.ty = y; s.tr = r; s.ta = a; s.tc = c || SEC[i % 6];
+        };
 
         const sin = Math.sin, cos = Math.cos;
 
+        // The Orb Actor's Full Repertoire restored with soft ambient glows
         const M = {
-            still(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * (.14 + .006 * sin(o.t * 1.0)), a: 0.85, h: 0, rg: 0 }); },
-            hollow(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .17, a: .75, h: 1, rg: 0 }); },
+            bar(o) { Object.assign(T, { bar: 1, x: o.cx, y: o.cy, r: o.u * .05, a: 0 }); },
+            ignite(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .13, a: 1 }); },
+            void(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .05, a: 0 }); },
+            still(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * (.12 + .004 * sin(o.t * 1.2)), a: 1 }); },
+            hollow(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .15, a: .9, h: 1 }); },
             orbit(o) {
                 M.still(o);
                 for (let i = 0; i < 6; i++) {
-                    const a = o.t * .5 + i * 1.047;
-                    S[i].tx = o.cx + cos(a) * o.u * .24;
-                    S[i].ty = o.cy + sin(a) * o.u * .16;
-                    S[i].tr = o.u * .025; S[i].ta = .4;
+                    const a = o.t * .9 + i * 1.047;
+                    sat(i, o.cx + cos(a) * o.u * .21, o.cy + sin(a) * o.u * .15, o.u * .03, .8);
                 }
             },
             scatter(o) {
-                Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .04, a: .7 });
-                for (let i = 0; i < 12; i++) {
-                    const f = .4 + .6 * ((i * 37) % 10) / 10;
-                    S[i].tx = o.cx + sin(o.t * .3 + i * 2.3) * o.u * f * .5;
-                    S[i].ty = o.cy + cos(o.t * .25 + i * 1.7) * o.u * f * .3;
-                    S[i].tr = o.u * .015; S[i].ta = .5;
+                Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .03, a: .9 });
+                for (let i = 0; i < N; i++) {
+                    const f = .35 + .65 * ((i * 37) % 10) / 10;
+                    sat(i, o.cx + sin(o.t * .6 + i * 2.3) * .5 * o.u * f * 1.3, o.cy + cos(o.t * .5 + i * 1.7) * .3 * o.u * f, o.u * (.018 + (i % 4) * .006), .7);
+                }
+            },
+            hyper(o) {
+                Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .04, a: 1, k: .2 });
+                for (let i = 0; i < 14; i++) {
+                    const a = o.t * (5 + i * .25) + i;
+                    sat(i, o.cx + cos(a) * o.u * (.08 + i * .012), o.cy + sin(a) * o.u * (.06 + i * .01), o.u * .014, .8);
                 }
             },
             constellation(o) {
-                Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .05, a: .8, ln: 1 });
+                Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .045, a: .7, ln: 1 });
                 for (let i = 0; i < 6; i++) {
-                    const a = i * 1.047 + sin(o.t * .2) * .1;
-                    S[i].tx = o.cx + cos(a) * o.u * .28;
-                    S[i].ty = o.cy + sin(a) * o.u * .18;
-                    S[i].tr = o.u * .03; S[i].ta = .6;
+                    const a = i * 1.047 - .5 + sin(o.t * .3 + i) * .1;
+                    sat(i, o.cx + cos(a) * o.u * .26, o.cy + sin(a) * o.u * .17, o.u * .04, .8);
                 }
             },
-            seek(o) { Object.assign(T, { x: o.cx + o.u * (-.25 + Math.min(o.ag / 3000, 1) * .25), y: o.cy, r: o.u * .045, a: .9, p: 1 }); },
-            pulse(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * (.12 + .02 * sin(o.t * 3)), a: .9, rg: .4 }); },
+            seek(o) { Object.assign(T, { x: o.cx + o.u * (-.32 + Math.min(o.ag / 3200, 1) * .31), y: o.cy, r: o.u * .035, a: 1, p: 1, k: .1 }); },
+            panic(o) {
+                Object.assign(T, { x: o.cx - o.u * .01, y: o.cy, r: o.u * .03, a: 1, p: 1, jit: o.u * .014, k: .3 });
+                for (let i = 0; i < 9; i++) sat(i, C.x + sin(o.t * 13 + i * 5) * o.u * .07, C.y + cos(o.t * 11 + i * 3) * o.u * .07, o.u * .01, .7, tcol);
+            },
+            reroute(o) {
+                const w = o.ag < 1100;
+                Object.assign(T, { x: w ? o.cx + o.u * .07 : o.cx + o.u * .27, y: w ? o.cy - o.u * .17 : o.cy, r: o.u * .035, a: 1, p: 1, k: .07 });
+            },
+            stall(o) { Object.assign(T, { x: o.cx + o.u * .22, y: o.cy, r: o.u * .035, a: .55 + .35 * sin(o.t * 12), p: 1 }); },
+            laze(o) { Object.assign(T, { x: o.cx, y: o.cy + o.u * .2, r: o.u * (.15 + .008 * sin(o.t * .7)), a: .38, sq: .5, k: .03 }); },
+            deadline(o) {
+                Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .05, a: 1, jit: o.u * .007, cd: Math.max(0, 1 - o.ag / 2300), k: .15 });
+                for (let i = 0; i < 8; i++) {
+                    const a = o.t * 8 + i;
+                    sat(i, o.cx + cos(a) * o.u * .07, o.cy + sin(a) * o.u * .07, o.u * .012, .8, tcol);
+                }
+            },
+            surge(o) {
+                Object.assign(T, { x: o.cx + o.u * (-.3 + Math.min(o.ag / 700, 1) * .6), y: o.cy, r: o.u * .05, a: 1, p: 1, k: .16 });
+                for (let i = 0; i < 12; i++) sat(i, C.x - (i + 1) * o.u * .02, C.y + sin(o.t * 20 + i) * o.u * .012, o.u * .022 * (1 - i / 13), .8 - i * .05, tcol);
+            },
+            nodes(o) {
+                Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .04, a: .3 });
+                for (let i = 0; i < 4; i++) sat(i, o.cx + (i - 1.5) * o.u * .22, o.cy + sin(o.t * 1.4 + i) * o.u * .02, o.u * .07, .9, SEC[[0, 1, 4, 5][i]]);
+            },
+            ring(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .14, a: .22, rg: Math.min(.9, .55 + o.ag / 24000) }); },
             follow(o) {
-                Object.assign(T, { x: px, y: py, r: o.u * .07, a: .45 });
+                Object.assign(T, { x: px, y: py, r: o.u * .06, a: .55, k: .05 });
                 for (let i = 0; i < 6; i++) {
-                    const a = o.t * .6 + i * 1.047;
-                    S[i].tx = C.x + cos(a) * o.u * .06;
-                    S[i].ty = C.y + sin(a) * o.u * .06;
-                    S[i].tr = o.u * .012; S[i].ta = .4; S[i].tc = acc;
+                    const a = o.t * .8 + i * 1.047;
+                    sat(i, C.x + cos(a) * o.u * .05, C.y + sin(a) * o.u * .05, o.u * .012, .5, acc);
                 }
             }
         };
 
         function setMode(n, c) {
+            const cx = W / 2, cy = H * .34;
+            if (['scatter', 'nodes', 'surge'].includes(n) && mode !== n) {
+                S.forEach(s => { s.x = C.x; s.y = C.y; s.a = .8; s.r = U * .02; });
+            }
+            if (n === 'seek' && mode !== 'seek') { C.x = cx - U * .32; C.y = cy; }
+            if (n === 'nodes') C.fl = 1;
             mode = n; ma = performance.now(); tcol = hex(c || '#ffffff');
         }
 
         function frame(now) {
-            const t = now / 1000, ag = now - ma, cx = W / 2, cy = H * (inStory ? .38 : .46), u = U, o = { t, ag, cx, cy, u };
-            
-            Object.assign(T, { bar: 0, h: 0, rg: 0, sq: 1, jit: 0, cd: 0, p: 0, ln: 0, fl: 0, col: [255, 255, 255], k: .05 });
-            S.forEach(s => { s.ta = 0; s.tr = s.r * .8; });
+            const t = now / 1000, ag = now - ma, cx = W / 2, cy = H * (inStory ? .34 : .46), u = U, o = { t, ag, cx, cy, u };
+
+            Object.assign(T, { bar: 0, h: 0, rg: 0, sq: 1, jit: 0, cd: 0, p: 0, ln: 0, fl: 0, a: 0, k: .06 });
+            S.forEach(s => { s.ta = 0; s.tr = s.r; });
             (M[mode] || M.still)(o);
 
             const k = RM ? 1 : T.k;
-            for (const q of ['x', 'y', 'r', 'a', 'h', 'rg', 'sq']) C[q] += (T[q] - C[q]) * (q == 'x' || q == 'y' ? k : .08);
-            for (let i = 0; i < 3; i++) C.col[i] += (tcol[i] - C.col[i]) * .05;
+            for (const q of ['x', 'y', 'r', 'a', 'h', 'bar', 'rg', 'sq', 'jit', 'cd', 'p', 'ln']) {
+                C[q] += (T[q] - C[q]) * (q == 'x' || q == 'y' ? k : Math.min(k * 1.4, 1));
+            }
+            for (let i = 0; i < 3; i++) C.col[i] += (tcol[i] - C.col[i]) * .06;
 
             g.globalCompositeOperation = 'source-over';
-            g.fillStyle = 'rgba(5, 6, 8, 0.25)';
+            g.globalAlpha = 1;
+            g.fillStyle = `rgba(5, 6, 8, ${mode == 'surge' || mode == 'hyper' ? .22 : 1})`;
             g.fillRect(0, 0, W, H);
             g.globalCompositeOperation = 'lighter';
 
-            const col = C.col.map(Math.round);
-            const grad = g.createRadialGradient(C.x, C.y, 0, C.x, C.y, C.r * 2.8);
-            grad.addColorStop(0, `rgba(${col.join(',')}, ${C.a * 0.35})`);
-            grad.addColorStop(0.5, `rgba(${col.join(',')}, ${C.a * 0.08})`);
-            grad.addColorStop(1, 'transparent');
-            g.fillStyle = grad;
-            g.fillRect(0, 0, W, H);
+            // Ambient background radial glow
+            dot(W * (.25 + .05 * sin(t * .1)), H * .8, u * .7, .08, acc);
+            dot(W * (.8 - .05 * cos(t * .13)), H * .2, u * .6, .06, acc);
 
-            g.beginPath();
-            g.arc(C.x, C.y, C.r, 0, Math.PI * 2);
-            g.fillStyle = `rgba(${col.join(',')}, ${C.a})`;
-            g.fill();
+            const jx = C.x + (Math.random() - .5) * C.jit,
+                  jy = C.y + (Math.random() - .5) * C.jit,
+                  col = C.col.map(Math.round);
 
-            g.beginPath();
-            g.arc(C.x, C.y, C.r * 0.35, 0, Math.PI * 2);
-            g.fillStyle = 'rgba(255, 255, 255, 0.6)';
-            g.fill();
+            if (C.bar > .02) {
+                g.globalAlpha = C.bar * (sin(t * 4) > -.2 ? 1 : .15);
+                g.fillStyle = '#fff';
+                g.fillRect(jx - 1.5, jy - u * .09, 3, u * .18);
+                dot(jx, jy, u * .07, .5 * C.bar, [255, 255, 255], 0, 2.6);
+            }
 
-            if (C.rg > 0.05) {
-                g.strokeStyle = `rgba(${col.join(',')}, 0.4)`;
-                g.lineWidth = 2;
+            dot(jx, jy, C.r, C.a * (1 - C.h), col, 0, C.sq);
+            dot(jx, jy, C.r * .45, C.a * (1 - C.h) * .9, [255, 255, 255], 0, C.sq);
+            dot(jx, jy, C.r, C.a * C.h, col, 1, C.sq);
+
+            g.lineWidth = 3;
+            if (C.rg > .02) {
+                g.globalAlpha = .9;
+                g.strokeStyle = `rgb(${col})`;
+                g.shadowColor = `rgb(${col})`;
+                g.shadowBlur = 18;
                 g.beginPath();
-                g.arc(C.x, C.y, u * 0.14, t * 0.4, t * 0.4 + C.rg * Math.PI * 1.5);
+                g.arc(C.x, C.y, u * .11, t * .5, t * .5 + C.rg * 6.283);
+                g.stroke();
+                g.shadowBlur = 0;
+            }
+
+            if (C.cd > .02) {
+                g.globalAlpha = .9; g.strokeStyle = '#fb923c';
+                g.beginPath(); g.arc(C.x, C.y, u * .1, -1.57, -1.57 + C.cd * 6.283); g.stroke();
+            }
+
+            if (C.p > .02) {
+                g.strokeStyle = '#fff'; g.globalAlpha = .35 * C.p;
+                if (mode != 'surge' && mode != 'deadline') {
+                    g.beginPath(); g.moveTo(cx + u * .06, cy - u * .12); g.lineTo(cx + u * .06, cy + u * .12); g.stroke();
+                }
+                g.strokeStyle = '#22d3ee'; g.globalAlpha = .6 * C.p;
+                g.beginPath(); g.arc(cx + u * .3, cy, u * .045 * (1 + .06 * sin(t * 3)), 0, 6.283); g.stroke();
+            }
+
+            S.forEach((s) => {
+                const kk = RM ? 1 : Math.min(T.k + .02, .2);
+                s.x += (s.tx - s.x) * kk; s.y += (s.ty - s.y) * kk;
+                s.r += (s.tr - s.r) * .1; s.a += (s.ta - s.a) * .08;
+                for (let j = 0; j < 3; j++) s.c[j] += (s.tc[j] - s.c[j]) * .08;
+                dot(s.x, s.y, s.r * 2.2, s.a, s.c.map(Math.round));
+                dot(s.x, s.y, s.r * .9, s.a * .8, [255, 255, 255]);
+            });
+
+            if (C.ln > .02) {
+                g.globalAlpha = C.ln * .3; g.strokeStyle = '#fff'; g.lineWidth = 1; g.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    g.moveTo(S[i].x, S[i].y); g.lineTo(S[(i + 1) % 6].x, S[(i + 1) % 6].y);
+                    g.moveTo(S[i].x, S[i].y); g.lineTo(C.x, C.y);
+                }
                 g.stroke();
             }
 
-            S.forEach(s => {
-                s.x += (s.tx - s.x) * .08; s.y += (s.ty - s.y) * .08;
-                s.r += (s.tr - s.r) * .1; s.a += (s.ta - s.a) * .08;
-                if (s.a < .01 || s.r < .5) return;
-                g.beginPath();
-                g.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                g.fillStyle = `rgba(255, 255, 255, ${s.a * 0.35})`;
-                g.fill();
-            });
+            if (C.fl > .01) {
+                dot(C.x, C.y, u * 1.1, C.fl * .45, [255, 255, 255]);
+                C.fl *= .94;
+            }
 
             requestAnimationFrame(frame);
         }
@@ -475,31 +580,55 @@
             }
         });
 
+        // Script definition with rich actor modes
         const sb = '#8fa8d6', B = [
-            ['still', '#ffffff', 2200, '#Still Becoming'],
-            ['hollow', sb, 2400, '#01 · On Paper'],
-            ['still', sb, 3800, 'Electrical Engineering Graduate.', 'Telecommunications specialization.'],
-            ['orbit', '#cbd5e1', 4800, 'Circuits. Digital logic. Control systems.', 'Embedded systems. Telecommunications. AI.'],
-            ['orbit', '#cbd5e1', 4000, 'And outside the lectures?', 'Team projects. Solo builds. Research. Technical writing.'],
-            ['still', sb, 4200, "That's what I studied.", 'The degree explains the discipline. Not the direction.'],
-            ['scatter', '#fff', 3600, '#02 · Where My Interests Meet', 'It started with taking things apart.'],
-            ['scatter', '#fff', 4200, 'Old watches. Alarm clocks. Computers.', 'I wanted to know what made them work — and what else they could do.'],
-            ['constellation', '#fff', 4600, 'Hardware led to software. Engineering opened doors', 'to AI, mechatronics and control. Beyond that: products, business, education.'],
-            ['constellation', '#fff', 4000, 'The common thread?', 'How things work. How they fit together. How they could work better.'],
-            ['seek', '#22d3ee', 4200, '#03 · The Way I Approach Things', 'Curiosity gets me started. The problem keeps me going.'],
-            ['seek', '#22d3ee', 4400, "I want to understand what I'm dealing with before I jump to a solution."],
-            ['pulse', '#f43f5e', 4600, "Sometimes the data doesn't cooperate. Sometimes a method falls short.", 'Sometimes I have to learn a whole new tool just to move forward.'],
-            ['still', '#22d3ee', 4000, 'So I adjust. Figure it out.', 'Then figure out what comes next.'],
-            ['still', '#b4783c', 3800, '#04 · What I Bring', "I'm lazy as hell. 💀", 'I can spend ages thinking about an idea. Actually starting? That’s another matter.'],
-            ['pulse', '#fb923c', 4500, 'But give me a deadline…', 'And suddenly, things get done.'],
-            ['orbit', '#fb923c', 5200, 'Case in point:', 'IEEE paper · ICIT 2024', 'Thesis project · NeuroSense', 'Deployed demo · Hugging Face'],
-            ['still', '#cbd5e1', 4200, "That's what I bring to the table.", "But a table isn't the whole picture."],
-            ['still', '#c4a5f7', 3600, '#05 · Beyond the Labels', 'An engineer by education. A curious mind by nature.'],
-            ['hollow', '#ffffff', 4800, 'Drawn to what is, what could be, and what connects the two.', 'Still exploring. Still becoming.'],
-            ['still', '#fff', 4000, '~You read all that, huh?', '~Anyway. The actual website is right here.']
+            ['bar', '#ffffff', 1700],
+            ['ignite', '#cbd5e1', 2600, '#Still Becoming'],
+            ['hollow', sb, 1700, '#01 · On Paper'],
+            ['hollow', sb, 3200, 'So, what does the paper say?'],
+            ['still', '#cbd5e1', 3600, 'Electrical Engineering Graduate.', 'Telecommunications specialization.'],
+            ['hollow', sb, 2600, 'Four years of… what, exactly?'],
+            ['orbit', '#cbd5e1', 4400, 'Circuits. Digital logic. Control systems.', 'Embedded systems. Telecommunications. AI.'],
+            ['orbit', '#cbd5e1', 3300, 'And outside the lectures?', 'Team projects. Solo builds. Research. Technical writing.'],
+            ['still', sb, 3800, "That's what I studied.", 'The degree explains the discipline. Not the direction.'],
+            ['void', '#fff', 1200],
+            ['void', '#fff', 1700, '#02 · Where My Interests Meet'],
+            ['still', '#fff', 2600, 'It started with taking things apart.'],
+            ['scatter', '#fff', 3200, 'Old watches. Alarm clocks. Computers.'],
+            ['scatter', '#fff', 3400, 'I wanted to know what made them work —', 'and what else they could do.'],
+            ['hyper', '#ffffff', 2800, 'Then came the rabbit holes.'],
+            ['scatter', '#fff', 4400, 'Hardware led to software. Engineering opened doors', 'to AI, mechatronics and control. Beyond that: products, business, education.'],
+            ['constellation', '#fff', 2600, 'The common thread?'],
+            ['constellation', '#fff', 3800, 'How things work. How they fit together.', 'How they could work better.'],
+            ['constellation', '#fff', 3000, 'Different fields. Different questions.', 'Surprisingly similar problems.'],
+            ['still', '#fff', 3300, 'Curiosity is one thing.', 'What you do with it is another.'],
+            ['void', '#fff', 1700, '#03 · The Way I Approach Things'],
+            ['seek', '#22d3ee', 3600, 'Curiosity gets me started.', 'The problem keeps me going.'],
+            ['seek', '#22d3ee', 3800, "I want to understand what I'm dealing with", 'before I jump to a solution.'],
+            ['panic', '#f43f5e', 3300, "But the first approach isn't always the right one."],
+            ['panic', '#f43f5e', 4800, "Sometimes the data doesn't cooperate. Sometimes a method falls short.", 'Sometimes I have to learn a whole new tool just to move forward.'],
+            ['reroute', '#22d3ee', 3700, 'So I adjust. Figure it out.', 'Then figure out what comes next.'],
+            ['stall', '#22d3ee', 3500, 'Ideas are easy.', 'Execution is another story.'],
+            ['stall', '#22d3ee', 2400, "Of course, there's a catch."],
+            ['void', '#fff', 1700, '#04 · What I Bring'],
+            ['laze', '#b4783c', 3000, "I'm lazy as hell. 💀"],
+            ['laze', '#b4783c', 5200, 'I can spend ages thinking about an idea.', 'Actually starting? That’s another matter.'],
+            ['deadline', '#fb923c', 2500, 'But give me a deadline…'],
+            ['surge', '#fb923c', 2900, 'And suddenly, things get done.'],
+            ['still', '#fb923c', 3600, 'I might procrastinate getting there,', 'but I never take the deadline lightly.'],
+            ['orbit', '#fb923c', 4800, 'Case in point:', 'IEEE paper · ICIT 2024', 'Thesis project · NeuroSense', 'Deployed demo · Hugging Face'],
+            ['nodes', '#fb923c', 6500, "Jokes aside, here's what I bring.", 'Technical range · hardware, embedded, software, AI, web', 'Research & problem-solving', 'Tools & workflows · PMI Agile + Predictive, Product School', 'Quick to learn · concepts first, tools follow'],
+            ['still', '#cbd5e1', 3800, "That's what I bring to the table.", "But a table isn't the whole picture."],
+            ['void', '#fff', 1700, '#05 · Beyond the Labels'],
+            ['hollow', '#c4a5f7', 3000, 'An engineer by education.'],
+            ['still', '#c4a5f7', 3000, 'A curious mind by nature.'],
+            ['ring', '#e9d5ff', 4300, 'Drawn to what is, what could be,', 'and what connects the two.'],
+            ['ring', '#ffffff', 4600, 'Still exploring. Still becoming.'],
+            ['bar', '#fff', 3600, '~You read all that, huh?'],
+            ['bar', '#fff', 3800, '~Anyway. The actual website is right here.']
         ];
 
-        let bi = -1, tm = null, isPaused = false, curSec = 1;
+        let bi = -1, tm = null, isPaused = false, curSec = 1, lineTimeouts = [];
         const cn = {}, cc = {};
 
         B.forEach(b => {
@@ -531,38 +660,57 @@
             let i = 0;
             (function f() {
                 el.textContent = s.slice(0, ++i);
-                if (i < s.length && !isPaused) setTimeout(f, RM ? 0 : 35);
+                if (i < s.length && !isPaused) setTimeout(f, RM ? 0 : 38);
             })();
         }
 
-        function showBeat(b) {
-            const s = $('#sub'); s.innerHTML = ''; let delay = 0;
-            b.l.forEach(line => {
-                let p = document.createElement('p'), char = line[0];
+        function clearLineTimeouts() {
+            lineTimeouts.forEach(t => clearTimeout(t));
+            lineTimeouts = [];
+        }
+
+        // Dark Thriller Sequential Staggered Text Reveal
+        function showBeatThriller(b) {
+            const s = $('#sub'); s.innerHTML = ''; clearLineTimeouts();
+            let accumulatedDelay = 0;
+
+            b.l.forEach((line, idx) => {
+                let p = document.createElement('p');
+                let char = line[0];
+
                 if (char == '#') {
-                    p.className = 'ttl'; p.textContent = line.slice(1); p.style.setProperty('--tc', b.c);
+                    p.className = 'ttl thriller-line'; p.textContent = line.slice(1); p.style.setProperty('--tc', b.c);
                 } else if (char == '~') {
-                    p.className = 'ty'; typ(p, line.slice(1));
+                    p.className = 'ty thriller-line';
                 } else {
-                    p.textContent = line;
+                    p.className = 'thriller-line'; p.textContent = line;
                 }
-                p.style.animationDelay = delay + 'ms';
-                delay += 300; s.append(p);
+
+                s.append(p);
+
+                // Reveal each line individually like a dark cinematic film title
+                const t = setTimeout(() => {
+                    p.classList.add('show');
+                    if (char == '~') typ(p, line.slice(1));
+                }, accumulatedDelay);
+
+                lineTimeouts.push(t);
+                accumulatedDelay += char == '#' ? 700 : (line.length * 35 + 600);
             });
         }
 
         function getBeatDuration(b) {
-            const textLen = b.l.reduce((acc, l) => acc + l.length, 0);
-            return Math.max(b.ms, textLen * 45);
+            const totalChars = b.l.reduce((acc, l) => acc + l.length, 0);
+            return Math.max(b.ms, totalChars * 55 + 1200);
         }
 
         function go(i) {
-            clearTimeout(tm);
+            clearTimeout(tm); clearLineTimeouts();
             if (i >= B.length) return endStory();
             bi = Math.max(i, 0);
             const b = B[bi];
             setMode(b.m, b.c);
-            showBeat(b);
+            showBeatThriller(b);
             updateProgress();
 
             if (!isPaused) {
@@ -585,12 +733,12 @@
             if (!isPaused) {
                 go(bi + 1);
             } else {
-                clearTimeout(tm);
+                clearTimeout(tm); clearLineTimeouts();
             }
         }
 
         function endStory() {
-            clearTimeout(tm); inStory = false;
+            clearTimeout(tm); clearLineTimeouts(); inStory = false;
             $('#st').classList.add('off');
             $('#site').classList.add('on');
             view('home');
@@ -598,10 +746,10 @@
 
         function replayStory() {
             inStory = true; isPaused = false; bi = -1;
-            $('#sub').innerHTML = '';
+            $('#sub').innerHTML = ''; clearLineTimeouts();
             $('#st').classList.remove('off', 'on');
             $('#site').classList.remove('on');
-            setMode('still');
+            setMode('bar');
         }
 
         $('#go').onclick = e => { e.stopPropagation(); $('#st').classList.add('on'); go(0); };
@@ -742,7 +890,7 @@
 
         $('#crb').onclick = op;
         $('#cr').onclick = cl;
-        setMode('still');
+        setMode('bar');
     </script>
 </body>
 </html>
