@@ -168,10 +168,11 @@
         #toast.on { opacity: 1; }
 
         /* Cinematic Story Mode */
-        #st { position: fixed; inset: 0; z-index: 6; }
+        #st { position: fixed; inset: 0; z-index: 6; pointer-events: none; }
+        #st * { pointer-events: auto; }
         #st.off { display: none; }
 
-        .lb { position: absolute; left: 0; right: 0; height: 0; background: #000; transition: height 1.4s var(--e); z-index: 2; }
+        .lb { position: absolute; left: 0; right: 0; height: 0; background: #000; transition: height 1.4s var(--e); z-index: 2; pointer-events: none; }
         .lb.t { top: 0; }
         .lb.b { bottom: 0; }
         #st.on .lb { height: 8vh; }
@@ -182,12 +183,12 @@
         #skip:hover { color: #fff; border-color: var(--ac); }
 
         #gate {
-            position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column;
+            position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column;
             align-items: center; justify-content: flex-end; gap: 16px; padding-bottom: 12vh; text-align: center;
         }
         #gate h1 { font-size: clamp(2rem, 7vw, 4.6rem); letter-spacing: .14em; }
         #gate p { color: var(--t3); }
-        #st.on #gate { display: none; }
+        #st.on #gate { display: none; pointer-events: none; }
 
         #sub {
             position: absolute; left: 0; right: 0; bottom: 18vh; z-index: 3; text-align: center;
@@ -218,10 +219,10 @@
         .s-btn:hover { color: #fff; border-color: var(--ac); background: rgba(111, 143, 201, 0.15); }
 
         #sc {
-            position: absolute; left: 10vw; right: 10vw; bottom: 3.2vh; z-index: 5; display: flex; gap: 6px; opacity: 0; transition: .6s;
+            position: absolute; left: 10vw; right: 10vw; bottom: 3.2vh; z-index: 5; display: flex; gap: 6px; opacity: 0; transition: .6s; pointer-events: none;
         }
-        #st.on #sc { opacity: 1; }
-        #sc i { flex: 1; height: 3px; background: rgba(255, 255, 255, .1); border-radius: 3px; overflow: hidden; cursor: pointer; }
+        #st.on #sc { opacity: 1; pointer-events: auto; }
+        #sc i { flex: 1; height: 3px; background: rgba(255, 255, 255, .1); border-radius: 3px; overflow: hidden; cursor: pointer; pointer-events: auto; }
         #sc b { display: block; height: 100%; width: 0; background: var(--ac); transition: width .4s linear; }
 
         /* Credits */
@@ -349,11 +350,10 @@
 
         // Calm, clean ambient orb state
         const C = { x: W / 2, y: H * .38, r: 0, a: 0, h: 0, bar: 0, rg: 0, sq: 1, jit: 0, cd: 0, p: 0, ln: 0, fl: 0, col: [255, 255, 255] },
-              T = {}, S = Array.from({ length: 16 }, () => ({ x: W/2, y: H/2, r: 0, a: 0, tx: 0, ty: 0, tr: 0, ta: 0, tc: [255,255,255], c: [255,255,255] }));
+              S = Array.from({ length: 16 }, () => ({ x: W/2, y: H/2, r: 0, a: 0, tx: 0, ty: 0, tr: 0, ta: 0, tc: [255,255,255], c: [255,255,255] }));
 
         const sin = Math.sin, cos = Math.cos;
 
-        // Clean, aesthetic backdrop behavior modes (smooth blur aesthetics, no eye-piercing clutter)
         const M = {
             still(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * (.14 + .006 * sin(o.t * 1.0)), a: 0.85, h: 0, rg: 0 }); },
             hollow(o) { Object.assign(T, { x: o.cx, y: o.cy, r: o.u * .17, a: .75, h: 1, rg: 0 }); },
@@ -404,7 +404,7 @@
         function frame(now) {
             const t = now / 1000, ag = now - ma, cx = W / 2, cy = H * (inStory ? .38 : .46), u = U, o = { t, ag, cx, cy, u };
             
-            Object.assign(T, { bar: 0, h: 0, rg: 0, sq: 1, jit: 0, cd: 0, p: 0, ln: 0, a: 0, k: .05 });
+            Object.assign(T, { bar: 0, h: 0, rg: 0, sq: 1, jit: 0, cd: 0, p: 0, ln: 0, fl: 0, col: [255, 255, 255], k: .05 });
             S.forEach(s => { s.ta = 0; s.tr = s.r * .8; });
             (M[mode] || M.still)(o);
 
@@ -417,7 +417,6 @@
             g.fillRect(0, 0, W, H);
             g.globalCompositeOperation = 'lighter';
 
-            // Soft atmospheric background glow
             const col = C.col.map(Math.round);
             const grad = g.createRadialGradient(C.x, C.y, 0, C.x, C.y, C.r * 2.8);
             grad.addColorStop(0, `rgba(${col.join(',')}, ${C.a * 0.35})`);
@@ -426,19 +425,16 @@
             g.fillStyle = grad;
             g.fillRect(0, 0, W, H);
 
-            // Core soft orb body
             g.beginPath();
             g.arc(C.x, C.y, C.r, 0, Math.PI * 2);
             g.fillStyle = `rgba(${col.join(',')}, ${C.a})`;
             g.fill();
 
-            // Inner core highlight
             g.beginPath();
             g.arc(C.x, C.y, C.r * 0.35, 0, Math.PI * 2);
             g.fillStyle = 'rgba(255, 255, 255, 0.6)';
             g.fill();
 
-            // Optional structural ring on background-only transition screens
             if (C.rg > 0.05) {
                 g.strokeStyle = `rgba(${col.join(',')}, 0.4)`;
                 g.lineWidth = 2;
@@ -447,7 +443,6 @@
                 g.stroke();
             }
 
-            // Secondary background particles (smooth blur aesthetics)
             S.forEach(s => {
                 s.x += (s.tx - s.x) * .08; s.y += (s.ty - s.y) * .08;
                 s.r += (s.tr - s.r) * .1; s.a += (s.ta - s.a) * .08;
@@ -462,7 +457,6 @@
         }
         requestAnimationFrame(frame);
 
-        // Optimized pointer movement listener
         addEventListener('pointermove', e => {
             px = e.clientX; py = e.clientY;
             const now = performance.now();
@@ -481,7 +475,6 @@
             }
         });
 
-        // --- Cinematic Narrative Script with Variable Reading Timers ---
         const sb = '#8fa8d6', B = [
             ['still', '#ffffff', 2200, '#Still Becoming'],
             ['hollow', sb, 2400, '#01 · On Paper'],
@@ -506,14 +499,14 @@
             ['still', '#fff', 4000, '~You read all that, huh?', '~Anyway. The actual website is right here.']
         ];
 
-        let bi = -1, tm = null, isPaused = false;
+        let bi = -1, tm = null, isPaused = false, curSec = 1;
         const cn = {}, cc = {};
 
         B.forEach(b => {
             b.m = b[0]; b.c = b[1]; b.ms = b[2]; b.l = b.slice(3);
             const m = (b.l[0] || '').match(/^#0(\d)/);
             if (m) curSec = +m[1];
-            b.ch = curSec || 1;
+            b.ch = curSec;
             cn[b.ch] = (cn[b.ch] || 0) + 1;
             b.ci = cc[b.ch] = (cc[b.ch] || 0) + 1;
         });
@@ -558,7 +551,6 @@
             });
         }
 
-        // Variable reading duration calculation based on text density + base ms
         function getBeatDuration(b) {
             const textLen = b.l.reduce((acc, l) => acc + l.length, 0);
             return Math.max(b.ms, textLen * 45);
@@ -612,7 +604,6 @@
             setMode('still');
         }
 
-        // Event bindings for story controls
         $('#go').onclick = e => { e.stopPropagation(); $('#st').classList.add('on'); go(0); };
         $('#sk2').onclick = e => { e.stopPropagation(); endStory(); };
         $('#skip').onclick = e => { e.stopPropagation(); endStory(); };
@@ -634,7 +625,6 @@
             }
         });
 
-        // --- Site Navigation & Sections ---
         const AC = { home: '#6f8fc9', projects: '#22d3ee', skills: '#34d399', education: '#a855f7', research: '#f43f5e', experience: '#fb923c', interests: '#3b82f6' },
               V = Object.keys(AC);
 
